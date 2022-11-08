@@ -1,0 +1,63 @@
+from turtle import *
+import random
+
+FALL_SPEED = 20
+SPEED_INCREMENT = 5
+
+
+class Coffee(Turtle):
+    def __init__(self):
+        super().__init__()
+        self.hideturtle()
+        self.all_coffee = []
+        self.new()
+        self.speed = 0
+
+    def new(self):
+        new_coffee = Turtle("coffee.gif")
+        new_coffee.penup()
+        random_x = random.randint(-150, 150)
+        new_coffee.goto(random_x, 1000)
+        new_coffee.setheading(90)
+        self.all_coffee.append(new_coffee)
+
+    def random_drop(self):
+        random_int = random.randint(1, 12)
+        if random_int == 3:
+            self.new()
+
+    def fall(self):
+        for coffee in self.all_coffee:
+            coffee.backward(FALL_SPEED + self.speed)
+
+    def speedup(self):
+        self.speed += SPEED_INCREMENT
+
+
+class Cucumber(Turtle):
+    def __init__(self):
+        super().__init__()
+        self.hideturtle()
+        self.all_cucumbers = []
+        #self.new()
+        self.speed = 0
+
+    def new(self):
+        new_cucumber = Turtle("cucumber.gif")
+        new_cucumber.penup()
+        random_x = random.randint(-150, 150)
+        new_cucumber.goto(random_x, 1000)
+        new_cucumber.setheading(90)
+        self.all_cucumbers.append(new_cucumber)
+
+    def random_drop(self):
+        random_int = random.randint(1, 50)
+        if random_int == 5:
+            self.new()
+
+    def fall(self):
+        for cucumber in self.all_cucumbers:
+            cucumber.backward(FALL_SPEED + self.speed)
+
+    def speedup(self):
+        self.speed += SPEED_INCREMENT
