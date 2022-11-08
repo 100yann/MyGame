@@ -1,0 +1,58 @@
+from turtle import *
+import time
+from stoyan import Stoyan, Collector
+from drops import Coffee, Cucumber
+from scoreboard import Scoreboard
+
+screen = Screen()
+
+screen.bgpic(picname="bground.gif")
+screen.addshape("stoyancopy.gif")
+screen.addshape("coffee.gif")
+screen.addshape("cucumber.gif")
+
+screen.setup(600, 1200)
+screen.tracer(0)
+
+player = Stoyan()
+coffee_manager = Coffee()
+scoreboard = Scoreboard()
+collector = Collector()
+cucumber = Cucumber()
+
+screen.listen()
+screen.onkey(fun=player.jump, key="space")
+screen.onkey(fun=player.right, key="d")
+screen.onkey(fun=player.left, key="a")
+
+
+def game_running():
+    time.sleep(0.05)
+    screen.update()
+    cucumber.fall()
+    cucumber.random_drop()
+    collector.goto(player.xcor(), player.ycor())
+    coffee_manager.fall()
+    coffee_manager.random_drop()
+
+
+game_is_on = True
+while game_is_on:
+    game_running()
+
+    for coffee in coffee_manager.all_coffee:
+        if coffee.distance(collector) <= 18:
+            scoreboard.update()
+            coffee.hideturtle()
+
+    if scoreboard.counter():
+        coffee_manager.speedup()
+        cucumber.speedup()
+
+    for cucu in cucumber.all_cucumbers:
+        if cucu.distance(collector) <= 18:
+            game_is_on = False
+            scoreboard.game_over()
+
+
+screen.exitonclick()
