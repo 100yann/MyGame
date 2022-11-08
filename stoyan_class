@@ -22,6 +22,13 @@ class Stoyan(Turtle):
     def left(self):
         new_x = self.xcor() - 30
         self.goto(new_x, self.ycor())
+        
+        
+###
+I created the Collector class hoping to make it a hidden hitbox around my player icon so it's easier 
+to collect the items falling, but since the .distance() function measures the distance from the center 
+of the object, it remains the same regardless how big you make it. 
+###
 
 
 class Collector(Stoyan):
